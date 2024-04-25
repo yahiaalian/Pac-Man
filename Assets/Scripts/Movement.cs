@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody2D))]
@@ -35,8 +34,37 @@ public class Movement : MonoBehaviour
         this.enabled = true;
     }
 
+    private void Update()
+    {
+        if(this.nextdirection != Vector2.zero) 
+        {
+            SetDirection(this.nextdirection);
+        }
+    }
     private void FixedUpdate()
     {
+        Vector2 position = this.rigidbody1.position;
+        Vector2 translation = this.direction * this.speed * this.speedmultiplier * Time.fixedDeltaTime;
 
+        this.rigidbody1.MovePosition(position + translation);
+    }
+
+    public void SetDirection(Vector2 direction, bool forced = false)
+    {
+        if (!Occupied(direction))
+        {
+            this.direction = direction;
+            this.nextdirection = Vector2.zero;
+        }
+        else
+        {
+            this.nextdirection = direction;
+        }
+    }
+
+    public bool Occupied(Vector2 direction)
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(this.transform.position, Vector2.one * 0.75f, 0.0f, direction, 1.5f, this.obstaclelayer);
+        return hit.collider != null;
     }
 }

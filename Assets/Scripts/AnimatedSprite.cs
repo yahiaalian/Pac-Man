@@ -1,6 +1,6 @@
-
 using UnityEngine;
 
+[RequireComponent (typeof(SpriteRenderer))]
 public class AnimatedSprite : MonoBehaviour
 {
     public SpriteRenderer spriteRenderer {  get; private set; }
@@ -21,7 +21,9 @@ public class AnimatedSprite : MonoBehaviour
     private void Advance()
     {
         if(!this.spriteRenderer.enabled)
+        {
             return;
+        }
 
         this.AnimationTime++;
 
