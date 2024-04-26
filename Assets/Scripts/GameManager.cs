@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,10 +10,14 @@ public class GameManager : MonoBehaviour
     public PacMan pacman;
 
     public Transform pellets;
+    private Text gameOverText;
+    private Text scoreText;
+    private Text livesText;
+
 
     public int GhostMultiplier { get; private set; } = 1;
-    public int score {  get; private set; }
-    public int lives { get; private set;}
+    public int score { get; private set; } = 0;
+    public int lives { get; private set; } = 3;
 
     private void Start()
     {
@@ -55,6 +60,8 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
+        gameOverText.enabled = true;
+
         for (int i = 0; i < this.ghosts.Length; i++)
         {
             this.ghosts[i].gameObject.SetActive(false);
@@ -64,11 +71,13 @@ public class GameManager : MonoBehaviour
     private void SetScore(int score)
     {
         this.score = score;
+        scoreText.text = score.ToString().PadLeft(2, '0');
     }
 
     private void SetLives(int lives)
     {
         this.lives = lives;
+        livesText.text = "x" + lives.ToString();
     }
 
     public void GhostEaten(Ghosts ghost)
@@ -106,6 +115,10 @@ public class GameManager : MonoBehaviour
     } 
     public void PowerPelletEaten(PowerPellet pellet)
     {
+        for(int i = 0; i < this.ghosts.Length; i++)
+        {
+            this.ghosts[i].frightened.Enable(pellet.duration);
+        }
         PelletEaten(pellet);
         CancelInvoke();
         Invoke(nameof(ResetGhostMultiplier), pellet.duration);
