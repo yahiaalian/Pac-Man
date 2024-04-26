@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -74,7 +76,7 @@ public class GameManager : MonoBehaviour
         SetScore(this.score + (ghost.points * this.GhostMultiplier));
         this.GhostMultiplier++;
     }
-    public void PacManEaten(PacMan Pacman)
+    public void PacManEaten()
     {
         this.pacman.gameObject.SetActive(false);
 
@@ -124,5 +126,6 @@ public class GameManager : MonoBehaviour
     {
         this.GhostMultiplier = 1;
     }
+
 }
 

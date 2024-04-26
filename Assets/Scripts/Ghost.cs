@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Ghosts : MonoBehaviour
@@ -45,7 +47,7 @@ public class Ghosts : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.layer==LayerMask.NameToLayer("pacman"))
+        if(collision.gameObject.layer==LayerMask.NameToLayer("Pac-Man"))
         {
             if(this.frightened.enabled)
             {
