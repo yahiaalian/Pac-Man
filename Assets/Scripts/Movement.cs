@@ -21,7 +21,7 @@ public class Movement : MonoBehaviour
 
     private void Start()
     {
-
+        ResetState();
     }
 
     public void ResetState()
